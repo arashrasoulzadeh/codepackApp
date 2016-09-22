@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Codepack</string>
+    <string name="search">Search</string>
+    <string name="search_hint">search for ...? </string>
+    <string name="loadForFistTime">Loading IDE</string>
+
+    <string name="login_googleLogo">Google</string>
+    <string name="login_title">Sign in</string>
+    <string name="login_details">After sign in you access ceratin features like commenting, viewing online archives and ...
+
+
+
+
+    \n\ncodepack uses google Authentication services to manage users,this
+    \n
+    </string>
+    <string name="login_register">
+        Register for new Google Account
+    </string>
+    <string name="login_signout">
+        Sign Out
+    </string>
+    <string name="panel">panel</string>
+</resources>
