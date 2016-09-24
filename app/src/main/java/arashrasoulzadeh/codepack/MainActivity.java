@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -26,6 +27,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     f1 safhe1;
@@ -54,7 +56,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
+//        String languageToLoad  = "fa"; // your language
+//        Locale locale = new Locale(languageToLoad);
+//        Locale.setDefault(locale);
+//        Configuration config = new Configuration();
+//        config.locale = locale;
+//        getBaseContext().getResources().updateConfiguration(config,
+//                getBaseContext().getResources().getDisplayMetrics());
+
         setContentView(R.layout.activity_main);
+
+
+
+
 
 
         f_latest = new f1();
@@ -153,10 +171,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(f_latest, "latest");
-        adapter.addFrag(f_top, "featured");
-        adapter.addFrag(f_search, "search");
-        adapter.addFrag(f_archive, "archive");
+        adapter.addFrag(f_latest, getString(R.string.tab_latest));
+        adapter.addFrag(f_top, getString(R.string.tab_featured));
+        adapter.addFrag(f_search, getString(R.string.tab_search));
+        adapter.addFrag(f_archive, getString(R.string.tab_archive));
         // adapter.addFragment(new f1(), "ONE");
         //adapter.addFragment(new f1(), "TWO");
         //adapter.addFragment(new f1(), "THREE");

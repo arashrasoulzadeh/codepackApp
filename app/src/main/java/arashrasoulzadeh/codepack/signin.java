@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -19,6 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import org.json.JSONObject;
 
 public class signin extends AppCompatActivity {
     GoogleApiClient mGoogleApiClient;
@@ -38,7 +42,7 @@ public class signin extends AppCompatActivity {
         ((TextView) findViewById(R.id.signOutLink)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(signin.this, "this", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signin.this, "خروج انجام شد.", Toast.LENGTH_SHORT).show();
                 sp.edit().remove("logedin").apply();
                 sp.edit().remove("personName").apply();
                 sp.edit().remove("personPhotoUrl").apply();
@@ -88,14 +92,24 @@ public class signin extends AppCompatActivity {
 
             signinbutton.setVisibility(View.GONE);
             aq.id(R.id.avatar).image(sp.getString("personPhotoUrl", ""));
-            ((TextView) findViewById(R.id.logindetails)).setVisibility(View.GONE);
             ((TextView) findViewById(R.id.registerLink)).setVisibility(View.GONE);
             ((TextView) findViewById(R.id.signOutLink)).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.logindetails)).setText(getString(R.string.checksitelogin) + "...");
+            String url = "";
+            aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
+                        @Override
+                        public void callback(String url, JSONObject json, AjaxStatus status) {
+                            
+                            super.callback(url, json, status);
+                        }
+                    }
+            );
+
         } else {
             signinbutton.setVisibility(View.VISIBLE);
 
             ((TextView) findViewById(R.id.signOutLink)).setVisibility(View.GONE);
-            ((TextView) findViewById(R.id.logindetails)).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.logindetails)).setText(getString(R.string.login_details));
             ((TextView) findViewById(R.id.registerLink)).setVisibility(View.VISIBLE);
             ((ImageView) findViewById(R.id.avatar)).setImageResource(R.drawable.avatar);
         }

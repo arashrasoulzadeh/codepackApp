@@ -29,8 +29,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     String textTransitionName2 = "";
 
 
-
-
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -80,19 +78,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTitle.setText(mDataset.get(position).title);
-        holder.mText.setText(mDataset.get(position).text.substring(0, 30) + "...".replaceAll("^\\s+", ""));
 
+        holder.t = mDataset.get(position).title;
+        holder.c = mDataset.get(position).text;
+        holder.id = mDataset.get(position).id;
+        holder.views = mDataset.get(position).views;
         if (mDataset.get(position).views.equals("null")) {
             holder.mView.setText("0");
         } else {
             holder.mView.setText(mDataset.get(position).views);
         }
-        holder.mView.setText(holder.mView.getText()+" #"+_id);
-        holder.t = mDataset.get(position).title;
-        holder.c = mDataset.get(position).text;
-        holder.id = mDataset.get(position).id;
-        holder.views = mDataset.get(position).views;
+
+        holder.mView.setText(holder.mView.getText() + "         #" + holder.id);
+        holder.mTitle.setText(mDataset.get(position).title);
+        holder.mText.setText(mDataset.get(position).text.substring(0, 30) + "...".replaceAll("^\\s+", ""));
 
         if (mDataset.get(position).offline) {
             holder.offline.setVisibility(View.VISIBLE);
@@ -102,7 +101,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
             holder.mTitle.setTransitionName("transtitle" + position);
         }
 

@@ -3,6 +3,8 @@ package arashrasoulzadeh.codepack;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +14,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionInflater;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,11 +79,11 @@ public class f1 extends Fragment {
             @Override
             public void onRefresh() {
                 // Refresh items
-                refreshItems("");
+                ref();
             }
         });
 
-        refreshItems("");
+        ref();
 
 
         return v;
@@ -90,6 +91,23 @@ public class f1 extends Fragment {
 
     }
 
+    void ref() {
+        if (isNetworkAvailable()) {
+            refreshItems("");
+        } else {
+            offlineAdapter mAdapter = new offlineAdapter(getActivity());
+            mSwipeRefreshLayout.setRefreshing(false);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     public void refreshItems(String q) {
         // String url = "";
@@ -130,8 +148,8 @@ public class f1 extends Fragment {
                                         byte[] data = pack.title.getBytes("UTF-8");
                                         txt = Base64.encodeToString(data, Base64.DEFAULT);
                                         Cursor c = sql.rawQuery("select * from archive where posttitle = '" + txt + "'", null);
-                                        if (c.getCount()>0)
-                                            pack.offline=true;
+                                        if (c.getCount() > 0)
+                                            pack.offline = true;
 
                                     } catch (Exception err) {
 
@@ -148,7 +166,7 @@ public class f1 extends Fragment {
 
 
                             } catch (Exception e) {
-                                Log.e("arashrasoulzadeh.codepack", "errrrrooorrrr = > " + e.getMessage().toLowerCase());
+                                //Log.e("arashrasoulzadeh.codepack", "errrrrooorrrr = > " + e.getMessage().toLowerCase());
 
                                 e.printStackTrace();
                             }

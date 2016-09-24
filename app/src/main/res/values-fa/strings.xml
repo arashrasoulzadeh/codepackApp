@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Codepack</string>
+    <string name="search">جستجو</string>
+    <string name="search_hint">جستجو برای ...؟ </string>
+    <string name="loadForFistTime">بازگذاری...</string>
+
+    <string name="login_googleLogo">گوگل</string>
+    <string name="login_title">ورود</string>
+    <string name="login_details">پس از ورود به شما امکان نظر دادن و ذخیره آنلاین آرشیو داده خواهد شد ...
+
+
+
+
+    \n\nکد پک برای ورود از سرویس گوگل استفاده میکند.
+    \n
+    </string>
+    <string name="login_register">
+        ثبت نام در گوگل
+    </string>
+    <string name="login_signout">
+        خروج
+    </string>
+    <string name="panel">پنل</string>
+
+    <string name="tab_latest">جدید ترین ها</string>
+    <string name="tab_featured">پربازدید</string>
+    <string name="tab_search">جستجو</string>
+    <string name="tab_archive">آرشیو</string>
+    <string name="offlinemodetitle">حالت آفلاین</string>
+    <string name="offlinemodedesc">برای بررسی مجدد صفحه را
+        \n
+        به سمت پایین بکشید.</string>
+    <string name="checksitelogin">بررسی مشخصات شما در سایت ...</string>
+
+</resources>

@@ -11,7 +11,7 @@
 
 
 
-    \n\ncodepack uses google Authentication services to manage users,this
+    \n\ncodepack uses google Authentication services to manage users,
     \n
     </string>
     <string name="login_register">
@@ -21,4 +21,11 @@
         Sign Out
     </string>
     <string name="panel">panel</string>
+    <string name="tab_latest">latest</string>
+    <string name="tab_featured">featured</string>
+    <string name="tab_search">search</string>
+    <string name="tab_archive">archive</string>
+    <string name="offlinemodetitle">Offline Mode</string>
+    <string name="offlinemodedesc">pull down to refresh</string>
+    <string name="checksitelogin">checking for your user in codepack.ir</string>
 </resources>
