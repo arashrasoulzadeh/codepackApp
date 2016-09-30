@@ -35,7 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mTitle, mText, mView;
-        public String t, c, id, views;
+        public String t, c, id, views, date;
         public LinearLayout parent;
         public ImageView offline;
 
@@ -83,6 +83,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.c = mDataset.get(position).text;
         holder.id = mDataset.get(position).id;
         holder.views = mDataset.get(position).views;
+        holder.date = mDataset.get(position).date;
         if (mDataset.get(position).views.equals("null")) {
             holder.mView.setText("0");
         } else {
@@ -108,7 +109,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDetails(holder.mTitle, holder.t, holder.c, holder.id, holder.views);
+                showDetails(holder.mTitle, holder.t, holder.c, holder.id, holder.views, holder.date);
                 Log.e(c.getPackageName(), "errr");
             }
         });
@@ -117,14 +118,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     TextView _tv1;
-    String _id, _title, _code, _view;
+    String _id, _title, _code, _view, _date;
 
-    public void showDetails(TextView tv1, String title, String code, String id, String view) {
+    public void showDetails(TextView tv1, String title, String code, String id, String view, String date) {
         _tv1 = tv1;
         _title = title;
         _code = code;
         _id = id;
         _view = view;
+        _date = date;
 //        f2 safhe2 = new f2();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             textTransitionName = tv1.getTransitionName();
@@ -161,6 +163,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         i.putExtra("TRANS_TEXT", textTransitionName);
         i.putExtra("id", _id);
         i.putExtra("view", _view);
+        i.putExtra("date", _date);
 
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(c, _tv1, textTransitionName);

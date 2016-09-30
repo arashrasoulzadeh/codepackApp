@@ -16,6 +16,8 @@ import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -69,6 +71,7 @@ public class f2 extends AppCompatActivity {
         id = getIntent().getStringExtra("id");
         transText = getIntent().getStringExtra("TRANS_TEXT");
         seen.setText(getIntent().getStringExtra("view") + " views so far");
+        date.setText(getIntent().getStringExtra("date"));
         makeTransitions();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -156,6 +159,8 @@ public class f2 extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), e.getMessage(),
                     Toast.LENGTH_SHORT).show();
+            FirebaseCrash.report(new Exception("save to hard"));
+
         }
     }
 
@@ -174,6 +179,7 @@ public class f2 extends AppCompatActivity {
             sql.execSQL(q);
             Toast.makeText(f2.this, "ذخیره شد.", Toast.LENGTH_SHORT).show();
         } catch (Exception err) {
+            FirebaseCrash.report(new Exception("archive post"));
 
         }
     }

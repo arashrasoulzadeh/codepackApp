@@ -17,10 +17,12 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,6 +47,7 @@ public class f1 extends Fragment {
     String url = "";
     MyDatabase mydb;
     SQLiteDatabase sql;
+    com.wang.avi.AVLoadingIndicatorView loader;
 
     @Nullable
     @Override
@@ -56,7 +59,8 @@ public class f1 extends Fragment {
         sql = mydb.getWritableDatabase();
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
-
+        mSwipeRefreshLayout.setRefreshing(true);
+        loader = (com.wang.avi.AVLoadingIndicatorView) v.findViewById(R.id.loader);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             setSharedElementReturnTransition(TransitionInflater.from(
@@ -126,13 +130,14 @@ public class f1 extends Fragment {
                 {
                     @Override
                     public void callback(String url, JSONArray object, AjaxStatus status) {
-
+                        loader.setVisibility(View.GONE);
                         if (object != null) {
                             try {
                                 for (int i = 0; i < object.length(); i++) {
 
                                     JSONObject j = new JSONObject(object.get(i).toString());
                                     Pack pack = new Pack();
+                                    pack.date = j.getString("date");
                                     pack.id = j.getString("id");
                                     pack.title = j.getString("title");
 
@@ -152,6 +157,7 @@ public class f1 extends Fragment {
                                             pack.offline = true;
 
                                     } catch (Exception err) {
+                                        FirebaseCrash.report(new Exception("encoding base64 => "+url));
 
                                     }
 
@@ -167,13 +173,13 @@ public class f1 extends Fragment {
 
                             } catch (Exception e) {
                                 //Log.e("arashrasoulzadeh.codepack", "errrrrooorrrr = > " + e.getMessage().toLowerCase());
+                                FirebaseCrash.report(new Exception("opening site api => "+url));
 
                                 e.printStackTrace();
                             }
                         }
 
                         mSwipeRefreshLayout.setRefreshing(false);
-
                         super.callback(url, object, status);
                     }
                 }

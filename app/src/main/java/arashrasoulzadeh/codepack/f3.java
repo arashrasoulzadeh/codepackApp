@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import java.util.ArrayList;
 
 /**
@@ -31,11 +33,11 @@ public class f3 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        items = new ArrayList<>();
         mydb = new MyDatabase(getActivity());
         sql = mydb.getWritableDatabase();
         inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.s1, container, false);
+        ((com.wang.avi.AVLoadingIndicatorView) v.findViewById(R.id.loader)).setVisibility(View.GONE);
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
@@ -65,6 +67,8 @@ public class f3 extends Fragment {
 
     public void refreshItems() {
         Cursor c = sql.rawQuery("select * from archive", null);
+        items = new ArrayList<>();
+
         if (c.moveToFirst()) {
             Pack p = new Pack();
             p.id = c.getString(1);
@@ -87,7 +91,7 @@ public class f3 extends Fragment {
 
         }
 
-
+        mSwipeRefreshLayout.setRefreshing(false);
         MyAdapter mAdapter = new MyAdapter(items, getActivity());
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -98,7 +102,10 @@ public class f3 extends Fragment {
             String text = new String(data, "UTF-8");
             return text;
         } catch (Exception err) {
+            FirebaseCrash.report(new Exception("cant decrypt"));
+
             return "cant decrypt";
+
         }
     }
 }

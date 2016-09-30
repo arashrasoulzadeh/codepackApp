@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="8dp">
+    android:paddingTop="8dp"
+    android:background="#ededed">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:padding="8dp"
-        android:scrollbars="vertical" />
+        android:orientation="vertical"
+        android:background="#ededed">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="wrap_content"
+            android:id="@+id/loader"
+            android:layout_height="wrap_content"
+            app:indicatorName="BallScaleIndicator"
+            android:layout_gravity="center_horizontal"
+            app:indicatorColor="#000000" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:scrollbars="vertical"
+            android:background="#ededed" />
+    </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

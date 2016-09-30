@@ -4,15 +4,17 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,10 +26,10 @@ import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     f1 safhe1;
@@ -58,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-
-
 //        String languageToLoad  = "fa"; // your language
 //        Locale locale = new Locale(languageToLoad);
 //        Locale.setDefault(locale);
@@ -69,10 +69,6 @@ public class MainActivity extends AppCompatActivity {
 //                getBaseContext().getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_main);
-
-
-
-
 
 
         f_latest = new f1();
@@ -109,13 +105,43 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    AlertDialog alertDialog;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.panel:
+            case R.id.chat:
+                try {
+                   // startActivity(new Intent(MainActivity.this, arashrasoulzadeh.codechat.Main2Activity.class));
+                    Toast.makeText(MainActivity.this,getString(R.string.commingsoon), Toast.LENGTH_SHORT).show();
+                } catch (Exception error) {
+                    FirebaseCrash.report(new Exception("error on loading chat screen"));
 
-                startActivity(new Intent(MainActivity.this, signin.class));
+                }
+                break;
+            case R.id.about:
+
+
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+
+                alertDialogBuilder.setTitle(getString(R.string.app_name));
+                int versionCode = BuildConfig.VERSION_CODE;
+                String versionName = BuildConfig.VERSION_NAME;
+
+                alertDialogBuilder.setMessage( getString(R.string.updateInfo) + "\n\nversion " +versionName );
+                // set positive button: Yes message
+                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        alertDialog.dismiss();
+
+                    }
+                });
+
+                alertDialog = alertDialogBuilder.create();
+                // show alert
+                alertDialog.show();
+
+
                 break;
 
         }

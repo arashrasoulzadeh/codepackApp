@@ -5,6 +5,6 @@ package arashrasoulzadeh.codepack;
  * www.mrarash.ir
  */
 public class Pack {
-    public String id, title, text,views;
+    public String id, title, text,views,date;
     public  boolean offline=false;
 }

@@ -31,5 +31,13 @@
         \n
         به سمت پایین بکشید.</string>
     <string name="checksitelogin">بررسی مشخصات شما در سایت ...</string>
+    <string name="updateInfo">
+
+        طراحی و توسعه توسط آرش رسول زاده
+    </string>
+    <string name="ok">باشه</string>
+    <string name="commingsoon">به زودی...</string>
+    <string name="title_activity_main2">کد چت</string>
+    <string name="action_settings">تنظیمات</string>
 
 </resources>

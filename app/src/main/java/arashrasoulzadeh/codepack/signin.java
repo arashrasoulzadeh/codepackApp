@@ -99,7 +99,7 @@ public class signin extends AppCompatActivity {
             aq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>() {
                         @Override
                         public void callback(String url, JSONObject json, AjaxStatus status) {
-                            
+
                             super.callback(url, json, status);
                         }
                     }
