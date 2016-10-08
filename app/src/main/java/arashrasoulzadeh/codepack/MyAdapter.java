@@ -169,6 +169,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 makeSceneTransitionAnimation(c, _tv1, textTransitionName);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             c.startActivity(i, options.toBundle());
+        }else{
+            c.startActivity(i);
         }
     }
 
